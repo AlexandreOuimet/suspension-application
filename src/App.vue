@@ -23,6 +23,9 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <v-spacer />
+      <v-btn block color="primary" @click="signOut">logout</v-btn>
     </v-navigation-drawer>
 
     <v-main>
@@ -32,15 +35,26 @@
 </template>
 
 <script>
+import { getAuth, signOut } from "firebase/auth";
+
 export default {
   name: "App",
 
   data: () => ({
     drawer: null,
     items: [
-      { title: "Home", icon: "mdi-view-dashboard", route: "/home" },
-      { title: "Register", icon: "mdi-account-plus", route: "/register" },
+      { title: "Home", icon: "mdi-view-dashboard", route: "home" },
+      { title: "Login", icon: "mdi-login", route: "login" },
+      { title: "Register", icon: "mdi-account-plus", route: "register" },
     ],
   }),
+
+  methods: {
+    async signOut() {
+      const auth = getAuth();
+      await signOut(auth);
+      console.log(auth);
+    },
+  },
 };
 </script>

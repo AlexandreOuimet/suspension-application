@@ -72,6 +72,8 @@ export default {
           console.log(errorCode);
 
           if (errorCode == "auth/email-already-in-use") {
+            console.error("errorCode", errorCode);
+
             this.snackbarMessage =
               "Il existe déjà un compte avec le même courriel";
             this.snackbar = true;
