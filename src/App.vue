@@ -5,24 +5,22 @@
     </v-app-bar>
 
     <v-navigation-drawer app v-model="drawer">
-      <v-list nav>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          :to="item.route"
-          link
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
+      <v-list-item
+        v-for="item in items"
+        :key="item.title"
+        :to="item.route"
+        link
+      >
+        <v-list-item-icon>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title>
-              <strong>{{ item.title }}</strong>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+        <v-list-item-content>
+          <v-list-item-title>
+            <strong>{{ item.title }}</strong>
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
       <v-spacer />
       <v-btn block color="primary" @click="signOut">logout</v-btn>
@@ -35,7 +33,9 @@
 </template>
 
 <script>
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebase";
+import router from "@/router";
 
 export default {
   name: "App",
@@ -51,9 +51,8 @@ export default {
 
   methods: {
     async signOut() {
-      const auth = getAuth();
       await signOut(auth);
-      console.log(auth);
+      router.push("signIn");
     },
   },
 };

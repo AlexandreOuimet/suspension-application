@@ -24,7 +24,8 @@
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase";
 import router from "@/router";
 
 export default {
@@ -44,12 +45,9 @@ export default {
 
   methods: {
     async signIn() {
-      const auth = getAuth();
-
       await signInWithEmailAndPassword(auth, this.email, this.password)
         .then(() => {
-          // const user = userCredential.user;
-          router.push("/home");
+          router.push("home");
         })
         .catch((error) => {
           const errorCode = error.code;
