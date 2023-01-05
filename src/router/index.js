@@ -32,11 +32,15 @@ const router = new VueRouter({
 
 export default router;
 
-router.beforeEach(async (to) => {
+router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
 
   if (requiresAuth && !(await getCurrentUser())) {
-    console.log("oui");
-    return "signIn";
+    next({
+      path: "signIn",
+      query: { redirect: to.fullPath },
+    });
+  } else {
+    next();
   }
 });
