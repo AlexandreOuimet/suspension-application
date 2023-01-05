@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form @submit.prevent="login" ref="form" v-model="valid">
+    <v-form @submit.prevent="signIn" ref="form" v-model="valid">
       <v-text-field
         label="Email"
         type="email"
@@ -43,7 +43,7 @@ export default {
   },
 
   methods: {
-    async login() {
+    async signIn() {
       const auth = getAuth();
 
       await signInWithEmailAndPassword(auth, this.email, this.password)

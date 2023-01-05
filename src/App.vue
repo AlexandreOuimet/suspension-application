@@ -44,7 +44,7 @@ export default {
     drawer: null,
     items: [
       { title: "Home", icon: "mdi-view-dashboard", route: "home" },
-      { title: "Login", icon: "mdi-login", route: "login" },
+      { title: "Sign In", icon: "mdi-login", route: "signIn" },
       { title: "Register", icon: "mdi-account-plus", route: "register" },
     ],
   }),
