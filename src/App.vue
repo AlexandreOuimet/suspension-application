@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="openDrawer"></v-app-bar-nav-icon>
     </v-app-bar>
 
     <v-navigation-drawer app v-model="drawer">
@@ -68,15 +68,16 @@ export default {
     ],
   }),
 
-  async mounted() {
-    this.currentUser = await getCurrentUser();
-    console.log(this.currentUser);
-  },
-
   methods: {
     async signOut() {
       await signOut(auth);
       router.push("signIn");
+    },
+
+    async openDrawer() {
+      this.drawer = !this.drawer;
+      this.currentUser = await getCurrentUser();
+      console.log(this.currentUser);
     },
   },
 };
