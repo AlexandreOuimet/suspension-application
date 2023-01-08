@@ -7,25 +7,38 @@
     <v-navigation-drawer app v-model="drawer">
       <v-card flat>
         <v-card-title v-if="currentUser != null">
-          <v-list-item-content class="text-right">
-            <v-list-item-title>{{ currentUser.displayName }}</v-list-item-title>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">{{
+              currentUser.displayName
+            }}</v-list-item-title>
             <v-list-item-subtitle>{{ currentUser.email }}</v-list-item-subtitle>
-            <v-list-item-subtitle>
-              <v-btn text @click="signOut">LogOut</v-btn>
-            </v-list-item-subtitle>
           </v-list-item-content>
         </v-card-title>
 
-        <v-card-text v-if="currentUser != null">
-          <v-list-item to="home" link>
-            <v-list-item-icon>
-              <v-icon>mdi-view-dashboard</v-icon>
-            </v-list-item-icon>
+        <v-divider />
 
-            <v-list-item-content>
-              <v-list-item-title> Home </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+        <v-card-text v-if="currentUser != null">
+          <v-list>
+            <v-list-item to="home" link>
+              <v-list-item-icon>
+                <v-icon>mdi-view-dashboard</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title> Home </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item to="signIn" link>
+              <v-list-item-icon>
+                <v-icon>mdi-logout</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title> Logout </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
         </v-card-text>
 
         <v-card-text v-else>
@@ -39,8 +52,6 @@
             </v-list-item-content>
           </v-list-item>
         </v-card-text>
-
-        <v-spacer />
       </v-card>
     </v-navigation-drawer>
 
@@ -60,7 +71,7 @@ export default {
   name: "App",
 
   data: () => ({
-    drawer: null,
+    drawer: true,
     currentUser: null,
     items: [
       { title: "Home", icon: "mdi-view-dashboard", route: "home" },
