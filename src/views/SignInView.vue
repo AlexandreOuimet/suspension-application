@@ -1,30 +1,45 @@
 <template>
-  <v-container>
+  <v-card class="d-flex align-center justify-center" flat>
     <v-form @submit.prevent="signIn" ref="form" v-model="valid">
-      <v-text-field
-        label="Email"
-        type="email"
-        v-model="email"
-        :rules="emailRules"
-      />
-      <v-text-field
-        label="Password"
-        type="password"
-        v-model="password"
-        :rules="passwordRules"
-      />
+      <v-card-text>
+        <v-row>
+          <v-text-field
+            label="Email"
+            type="email"
+            v-model="email"
+            :rules="emailRules"
+            solo
+          />
+        </v-row>
+        <v-row>
+          <v-text-field
+            label="Password"
+            type="password"
+            v-model="password"
+            :rules="passwordRules"
+            solo
+          />
+        </v-row>
 
-      <v-btn type="submit" color="primary" :disabled="!valid">Login</v-btn>
+        <v-row class="pt-0 align-center">
+          <v-btn text x-small @click="forwardToRegister()"
+            >Need an account?</v-btn
+          >
+          <v-spacer />
+          <v-btn type="submit" color="primary" :disabled="!valid">Login</v-btn>
+        </v-row>
+      </v-card-text>
     </v-form>
 
     <v-snackbar v-model="snackbar" timeout="5000">
       {{ snackbarMessage }}
     </v-snackbar>
-  </v-container>
+  </v-card>
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase";
 import router from "@/router";
 
 export default {
@@ -44,12 +59,9 @@ export default {
 
   methods: {
     async signIn() {
-      const auth = getAuth();
-
       await signInWithEmailAndPassword(auth, this.email, this.password)
         .then(() => {
-          // const user = userCredential.user;
-          router.push("/home");
+          router.push("home");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -60,6 +72,10 @@ export default {
             this.snackbar = true;
           }
         });
+    },
+
+    forwardToRegister() {
+      router.push("register");
     },
   },
 };
