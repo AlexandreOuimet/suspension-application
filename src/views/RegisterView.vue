@@ -1,5 +1,5 @@
 <template>
-  <v-card class="d-flex align-center justify-center" flat>
+  <v-container class="fill-height align-center justify-center">
     <v-form @submit.prevent="register" ref="form" v-model="valid">
       <v-card-text>
         <v-row>
@@ -49,7 +49,7 @@
     <v-snackbar v-model="snackbar" timeout="5000">
       {{ snackbarMessage }}
     </v-snackbar>
-  </v-card>
+  </v-container>
 </template>
 
 <script>

@@ -29,7 +29,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item to="signIn" link>
+            <v-list-item to="signIn" @click="signOut" link>
               <v-list-item-icon>
                 <v-icon>mdi-logout</v-icon>
               </v-list-item-icon>
@@ -42,15 +42,17 @@
         </v-card-text>
 
         <v-card-text v-else>
-          <v-list-item to="signIn" link>
-            <v-list-item-icon>
-              <v-icon>mdi-login</v-icon>
-            </v-list-item-icon>
+          <v-list>
+            <v-list-item to="signIn" link>
+              <v-list-item-icon>
+                <v-icon>mdi-login</v-icon>
+              </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title> SignIn </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+              <v-list-item-content>
+                <v-list-item-title> SignIn </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
         </v-card-text>
       </v-card>
     </v-navigation-drawer>
@@ -65,24 +67,18 @@
 import { getCurrentUser } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase";
-import router from "@/router";
 
 export default {
   name: "App",
 
   data: () => ({
-    drawer: true,
+    drawer: null,
     currentUser: null,
-    items: [
-      { title: "Home", icon: "mdi-view-dashboard", route: "home" },
-      { title: "Sign In", icon: "mdi-login", route: "signIn" },
-    ],
   }),
 
   methods: {
     async signOut() {
       await signOut(auth);
-      router.push("signIn");
     },
 
     async openDrawer() {
